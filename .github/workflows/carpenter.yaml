@@ -20,16 +20,16 @@ on:
   release:
     types:
       - published
-  env:
-    IMAGE_NAME: $image_name
-    IMAGE_TAG: $image_tag
-    QUAY_IMG_EXP: $quay_img_exp
-    GITHUB_USERNAME: ${{ github.actor }}
-    GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-    GITHUB_NAMESPACE: ${{ github.repository_owner }}
-    QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
-    QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
-    QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+env:
+  IMAGE_NAME: $image_name
+  IMAGE_TAG: $image_tag
+  QUAY_IMG_EXP: $quay_img_exp
+  GITHUB_USERNAME: ${{ github.actor }}
+  GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+  GITHUB_NAMESPACE: ${{ github.repository_owner }}
+  QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
+  QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
+  QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
 jobs:
   carpenter-build:
     name: Build ${{ github.ref_name }} from ${{ github.event_name }}
