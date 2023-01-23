@@ -31,8 +31,8 @@ env:
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
   QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
-  QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
-  QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+  QUAY_USERNAME: ${{ secrets.BATMAN_USERNAME }}
+  QUAY_PASSWORD: ${{ secrets.BATMAN_PASSWORD }}
 jobs:
   carpenter-build:
     name: Build ${{ github.ref_name }} from ${{ github.event_name }}
