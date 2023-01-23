@@ -1,12 +1,27 @@
 name: Carpenter Workflow to Build and Push Image
 on:
   workflow_call:
+    inputs:
+      IMAGE_TAG:
+        required: true
+        type: string
+      QUAY_IMG_EXP:
+        required: true
+        type: string
+    secrets:
+      IMAGE_NAME:
+      GITHUB_PASSWORD:
+      GITHUB_NAMESPACE:
+      QUAY_NAMESPACE:
+      QUAY_USERNAME:
+      QUAY_PASSWORD:
   push:
     branches:
       - "**"
   release:
     types:
       - published
+  
 jobs:
   carpenter-build:
     name: Build ${{ github.ref_name }} from ${{ github.event_name }}
