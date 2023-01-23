@@ -2,13 +2,13 @@ name: Carpenter Workflow to Build and Push Image
 on:
   workflow_call:
     inputs:
+      image_name:
+        required: true
+        type: string
       image_tag:
         required: true
         type: string
       quay_img_exp:
-        required: true
-        type: string
-      image_name:
         required: true
         type: string
       github_username:
@@ -24,9 +24,9 @@ on:
     types:
       - published
 env:
-  IMAGE_NAME: $image_name
-  IMAGE_TAG: $image_tag
-  QUAY_IMG_EXP: $quay_img_exp
+  IMAGE_NAME: ${{ image_name }}
+  IMAGE_TAG: ${{ image_tag }}
+  QUAY_IMG_EXP: ${{ quay_img_exp }}
   GITHUB_USERNAME: ${{ github.actor }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ github.repository_owner }}
