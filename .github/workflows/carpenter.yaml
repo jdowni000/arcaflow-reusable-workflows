@@ -2,16 +2,16 @@ name: Carpenter Workflow to Build and Push Image
 on:
   workflow_call:
     inputs:
-      IMAGE_TAG:
+      image_tag:
         required: true
         type: string
-      QUAY_IMG_EXP:
+      quay_img_exp:
         required: true
         type: string
-      IMAGE_NAME:
+      image_name:
         required: true
         type: string
-      GITHUB_NAMESPACE:
+      github_namespace:
         required: false
         type: string     
     secrets:     
@@ -33,14 +33,14 @@ jobs:
     steps:
       - name: Set ENV
         run: |
-          echo "IMAGE_TAG= $IMAGE_TAG" >> $GITHUB_ENV
-          echo "QUAY_IMG_EXP= $QUAY_IMG_EXP" >> $GITHUB_ENV
-          echo "IMAGE_NAME= $IMAGE_NAME" >> $GITHUB_ENV
-          echo "GITHUB_PASSWORD= $GITHUB_PASSWORD" >> $GITHUB_ENV
-          echo "GITHUB_NAMESPACE= $GITHUB_NAMESPACE" >> $GITHUB_ENV
-          echo "QUAY_NAMESPACE= $QUAY_NAMESPACE" >> $GITHUB_ENV
-          echo "QUAY_USERNAME= $QUAY_USERNAME" >> $GITHUB_ENV
-          echo "QUAY_PASSWORD= $QUAY_PASSWORD" >> $GITHUB_ENV
+          echo "IMAGE_TAG= $image_tag" >> $GITHUB_ENV
+          echo "QUAY_IMG_EXP= $quay_img_exp" >> $GITHUB_ENV
+          echo "IMAGE_NAME= $image_name" >> $GITHUB_ENV
+          echo "GITHUB_PASSWORD:${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+          echo "GITHUB_NAMESPACE= $github_namespace" >> $GITHUB_ENV
+          echo "QUAY_NAMESPACE:${{ secrets.QUAY_NAMESPACE }}" >> $GITHUB_ENV
+          echo "QUAY_USERNAME:${{ secrets.QUAY_USERNAME }} >> $GITHUB_ENV
+          echo "QUAY_PASSWORD:${{ secrets.QUAY_PASSWORD }}" >> $GITHUB_ENV
       - name: Set image tag for release
         if: github.event_name == 'release'
         run: |
