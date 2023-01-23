@@ -8,10 +8,14 @@ on:
       QUAY_IMG_EXP:
         required: true
         type: string
-    secrets:
       IMAGE_NAME:
-      GITHUB_PASSWORD:
+        required: true
+        type: string
       GITHUB_NAMESPACE:
+        required: false
+        type: string     
+    secrets:     
+      GITHUB_PASSWORD:
       QUAY_NAMESPACE:
       QUAY_USERNAME:
       QUAY_PASSWORD:
