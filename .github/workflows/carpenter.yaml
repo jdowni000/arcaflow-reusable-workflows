@@ -11,9 +11,12 @@ on:
       image_name:
         required: true
         type: string
+      github_username:
+        required: false
+        type: string
       github_namespace:
         required: false
-        type: string     
+        type: string    
   push:
     branches:
       - "**"
