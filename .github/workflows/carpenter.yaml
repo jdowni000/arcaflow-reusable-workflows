@@ -24,12 +24,12 @@ on:
     types:
       - published
 env:
-  IMAGE_NAME: ${{ image_name }}
-  IMAGE_TAG: ${{ image_tag }}
-  QUAY_IMG_EXP: ${{ quay_img_exp }}
-  GITHUB_USERNAME: ${{ github.actor }}
+  IMAGE_NAME: ${{ inputs.image_name }}
+  IMAGE_TAG: ${{ inputs.image_tag }}
+  QUAY_IMG_EXP: ${{ inputs.quay_img_exp }}
+  GITHUB_USERNAME: ${{ inputs.github_username }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_NAMESPACE: ${{ github.repository_owner }}
+  GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
   QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
   QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
   QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
