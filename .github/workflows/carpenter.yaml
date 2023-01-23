@@ -23,7 +23,8 @@ on:
       - published
   
 jobs:
-  set_env:
+  carpenter-build:
+    name: Build ${{ github.ref_name }} from ${{ github.event_name }}
     runs-on: ubuntu-latest
     steps:
       - name: Set ENV
@@ -36,10 +37,6 @@ jobs:
           echo "QUAY_NAMESPACE= $QUAY_NAMESPACE" >> $GITHUB_ENV
           echo "QUAY_USERNAME= $QUAY_USERNAME" >> $GITHUB_ENV
           echo "QUAY_PASSWORD= $QUAY_PASSWORD" >> $GITHUB_ENV
-  carpenter-build:
-    name: Build ${{ github.ref_name }} from ${{ github.event_name }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Set image tag for release
         if: github.event_name == 'release'
         run: |
