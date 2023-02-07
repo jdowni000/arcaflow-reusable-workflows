@@ -1,0 +1,51 @@
+name: Testing and Coverage
+on:
+  push:
+    branches:
+      - "**"
+  release:
+    types:
+      - published
+  pull_request:
+
+jobs:
+  coverage:
+    name: Testing and Coverage
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out code
+      uses: actions/checkout@v3
+    
+    - name: Test and Generate Coverage xml File
+      run: |
+        python -m venv .venv
+        source .venv/bin/activate
+        pip install poetry
+        pip install coverage
+        poetry install --without dev 
+        coverage run tests/test_*_plugin.py
+        coverage xml --omit=tests/*
+ 
+    - name: Generate Coverage Report
+      uses: irongut/CodeCoverageSummary@v1.3.0
+      with:
+        filename: coverage.xml
+        badge: true
+        fail_below_min: false
+        format: markdown
+        hide_branch_rate: false
+        hide_complexity: true
+        indicators: true
+        output: both
+        thresholds: '60 80'
+
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
+
+    - name: Write to Job Summary
+      run: |
+        cat code-coverage-results.md >> $GITHUB_STEP_SUMMARY
