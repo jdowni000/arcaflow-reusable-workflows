@@ -1,13 +1,6 @@
 name: Testing and Coverage
 on:
   workflow_call:
-  push:
-    branches:
-      - "**"
-  release:
-    types:
-      - published
-  pull_request:
 
 jobs:
   coverage:
