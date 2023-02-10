@@ -1,6 +1,10 @@
 name: Testing and Coverage
 on:
   workflow_call:
+    inputs:
+      additional_requirements:
+        required: false
+        type: string
 
 jobs:
   coverage:
@@ -14,6 +18,7 @@ jobs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
+        ${{ inputs.additional_requirements }}
         pip install poetry
         pip install coverage
         poetry install --without dev 
