@@ -2,10 +2,21 @@ name: Testing and Coverage
 on:
   workflow_call:
     inputs:
-      additional_requirements:
+      cmd_one:
         required: false
         type: string
-
+      cmd_two:
+        required: false
+        type: string
+      cmd_three:
+        required: false
+        type: string
+      cmd_four:
+        required: false
+        type: string
+      cmd_five:
+        required: false
+        type: string
 jobs:
   coverage:
     name: Testing and Coverage
@@ -19,7 +30,11 @@ jobs:
         python -m venv .venv
         source .venv/bin/activate
         echo "Looking for additional requirements"
-        ${{ inputs.additional_requirements }}
+        ${{ inputs.cmd_one }}
+        ${{ inputs.cmd_two }}
+        ${{ inputs.cmd_three }}
+        ${{ inputs.cmd_four }}
+        ${{ inputs.cmd_five }}
         pip install poetry
         pip install coverage
         poetry install --without dev 
