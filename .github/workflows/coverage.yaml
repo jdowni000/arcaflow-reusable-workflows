@@ -18,6 +18,7 @@ jobs:
       run: |
         python -m venv .venv
         source .venv/bin/activate
+        echo "Looking for additional requirements"
         ${{ inputs.additional_requirements }}
         pip install poetry
         pip install coverage
