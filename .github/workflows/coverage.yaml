@@ -27,14 +27,14 @@ jobs:
     
     - name: Test and Generate Coverage xml File
       run: |
-        python -m venv .venv
-        source .venv/bin/activate
         echo "Looking for additional requirements"
         ${{ inputs.cmd_one }}
         ${{ inputs.cmd_two }}
         ${{ inputs.cmd_three }}
         ${{ inputs.cmd_four }}
         ${{ inputs.cmd_five }}
+        python -m venv .venv
+        source .venv/bin/activate
         pip install poetry
         pip install coverage
         poetry install --without dev 
