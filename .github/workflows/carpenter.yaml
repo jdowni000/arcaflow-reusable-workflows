@@ -49,3 +49,10 @@ jobs:
         uses: arcalot/arcaflow-plugin-image-builder@main
         with:
           args: build --build --push
+      - name: Archive code coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: code-coverage-report
+          path: /htmlcov/index.html
+
+          
