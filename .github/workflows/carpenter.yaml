@@ -65,6 +65,10 @@ jobs:
         uses: arcalot/arcaflow-plugin-image-builder@main
         with:
           args: build --build --push
-
-
-          
+      - name: Retrieve code coverage
+        run: |
+          echo "$IMAGE_NAME:$IMAGE_TAG"
+          docker create --name temp "$IMAGE_NAME:$IMAGE_TAG"
+          docker cp temp:/htmlcov .
+          docker rm temp
+         
