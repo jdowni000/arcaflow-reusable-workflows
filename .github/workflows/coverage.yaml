@@ -17,7 +17,7 @@ jobs:
       - name: Retrieve code coverage
         run: |
           echo "${{ inputs.image_name }}:${{ inputs.image_tag }}"
-          docker create --name temp "${{ inputs.image_name }}:{{ inputs.image_tag }}"
+          docker create --name temp "${{ inputs.image_name }}:${{ inputs.image_tag }}"
           docker cp temp:/htmlcov .
           docker rm temp
           pip install html2text
