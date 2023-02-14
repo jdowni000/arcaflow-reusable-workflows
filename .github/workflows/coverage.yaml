@@ -12,10 +12,5 @@ jobs:
           name: code-coverage-report
       - name: Publish coverage report to job summary
         run: |
-          pwd
-          ls -ltr
-          whereis code-coverage-report
           pip install html2text
-          html2text --ignore-images --ignore-links -b 0 code-coverage-report/index.html >> $GITHUB_STEP_SUMMARY
-      
-
+          html2text --ignore-images --ignore-links -b 0 index.html >> $GITHUB_STEP_SUMMARY
