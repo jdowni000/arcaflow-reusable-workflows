@@ -1,19 +1,24 @@
 name: Build
 on:
   workflow_call:
+inputs:
+      image_name:
+        required: true
+        type: string
+      image_tag:
+        required: true
+        type: string
 
 jobs:
   build:
     name: Build
     runs-on: ubuntu-latest
     steps:
-      - name: Retrieve coverage report from carpenter job
-        uses: actions/download-artifact@v3
-        with:
-          name: code-coverage-report
-          path: htmlcov/
-      - name: Publish coverage report to job summary
+      - name: Retrieve code coverage
         run: |
+          docker create --name temp "${{ inputs.image_name }}:{{ inputs.image_tag }}"
+          docker cp test:/htmlcov .
+          docker rm test
           pip install html2text
           html2text --ignore-images --ignore-links -b 0 htmlcov/index.html >> $GITHUB_STEP_SUMMARY
       - name: Upload coverage results
