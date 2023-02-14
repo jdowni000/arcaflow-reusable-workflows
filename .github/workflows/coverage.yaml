@@ -6,6 +6,9 @@ jobs:
   coverage:
     runs-on: ubuntu-latest
     steps:
+      - name: Create dir
+        run: |
+          sudo mkdir /htmlcov
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
