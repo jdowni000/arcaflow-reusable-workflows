@@ -19,9 +19,9 @@ on:
         type: string
     outputs:
       img_name:
-        value: ${{ jobs.carpenter-build.outputs.img_name }}
+        value: ${{ jobs.carpenter-build.outputs.image }}
       img_tag:
-        value: ${{ jobs.carpenter-build.outputs.img_tag }}
+        value: ${{ jobs.carpenter-build.outputs.tag }}
         
 env:
   IMAGE_NAME: ${{ inputs.image_name }}
@@ -38,8 +38,8 @@ jobs:
     name: Build ${{ github.ref_name }} from ${{ github.event_name }}
     runs-on: ubuntu-latest
     outputs:
-      img_name: ${{ steps.Output.outputs.img }}
-      img_tag: ${{ steps.Output.outputs.tag }}
+      image: ${{ steps.image.outputs.img }}
+      tag: ${{ steps.tag.outputs.tag }}
     steps:
       - name: Set image tag for release
         if: github.event_name == 'release'
@@ -51,10 +51,14 @@ jobs:
           export commit_hash=${{ github.sha }}
           echo "IMAGE_TAG=${GITHUB_REF##*/}_${commit_hash:0:7}" >> $GITHUB_ENV
           echo "QUAY_IMG_EXP=90d" >> $GITHUB_ENV
-      - name: Output
+      - name: Create Output Image Name
+        id: image
         run: |
-          echo "img=$IMAGE_NAME" >> $GITHUB_OUTPUT
-          echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+          echo "img=${IMAGE_NAME}" >> $GITHUB_OUTPUT
+      - name: Create Output Image Tag
+        id: tag
+        run: |
+          echo "tag=${IMAGE_TAG}" >> $GITHUB_OUTPUT
       - name: Checkout this project
         uses: actions/checkout@v3
       - name: Carpenter build
