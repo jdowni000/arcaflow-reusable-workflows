@@ -10,6 +10,7 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: code-coverage-report
+          path: /htmlcov
       - name: Publish coverage report to job summary
         run: |
           pip install html2text
