@@ -19,9 +19,9 @@ on:
         type: string
     outputs:
       img_name:
-        value: ${{ jobs.carpenter-build.outputs.img }}
+        value: ${{ jobs.carpenter-build.outputs.img_name }}
       img_tag:
-        value: ${{ jobs.carpenter-build.outputs.tag }}
+        value: ${{ jobs.carpenter-build.outputs.img_tag }}
         
 env:
   IMAGE_NAME: ${{ inputs.image_name }}

@@ -17,8 +17,8 @@ jobs:
       - name: Retrieve code coverage
         run: |
           docker create --name temp "${{ inputs.image_name }}:{{ inputs.image_tag }}"
-          docker cp test:/htmlcov .
-          docker rm test
+          docker cp temp:/htmlcov .
+          docker rm temp
           pip install html2text
           html2text --ignore-images --ignore-links -b 0 htmlcov/index.html >> $GITHUB_STEP_SUMMARY
       - name: Upload coverage results
