@@ -25,6 +25,7 @@ env:
   IMAGE_NAME: ${{ inputs.image_name }}
   IMAGE_TAG: ${{ inputs.image_tag }}
   QUAY_IMG_EXP: ${{ inputs.quay_img_exp }}
+  QUAY_CUSTOM_REPO: ${{ inputs.quay_custom_repo }}
   GITHUB_USERNAME: ${{ inputs.github_username }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
