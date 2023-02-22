@@ -11,6 +11,9 @@ on:
       quay_img_exp:
         required: true
         type: string
+      quay_custom_repo:
+        required: false
+        type: string
       github_username:
         required: false
         type: string
