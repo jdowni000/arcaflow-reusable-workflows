@@ -49,6 +49,6 @@ jobs:
       - name: Checkout this project
         uses: actions/checkout@v3
       - name: Carpenter build
-        uses: arcalot/arcaflow-plugin-image-builder@main
+        uses: jdownie/arcaflow-plugin-image-builder@repository
         with:
           args: build --build --push
