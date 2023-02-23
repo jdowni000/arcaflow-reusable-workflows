@@ -11,7 +11,7 @@ on:
       quay_img_exp:
         required: true
         type: string
-      quay_custom_repo:
+      quay_custom_namespace:
         required: false
         type: string
       github_username:
@@ -25,7 +25,7 @@ env:
   IMAGE_NAME: ${{ inputs.image_name }}
   IMAGE_TAG: ${{ inputs.image_tag }}
   QUAY_IMG_EXP: ${{ inputs.quay_img_exp }}
-  QUAY_CUSTOM_REPO: ${{ inputs.quay_custom_repo }}
+  QUAY_CUSTOM_NAMESPACE: ${{ inputs.quay_custom_namespace }}
   GITHUB_USERNAME: ${{ inputs.github_username }}
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
