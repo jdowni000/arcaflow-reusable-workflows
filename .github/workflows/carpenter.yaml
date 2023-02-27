@@ -11,6 +11,9 @@ on:
       quay_img_exp:
         required: true
         type: string
+      quay_custom_namespace:
+        required: false
+        type: string
       github_username:
         required: false
         type: string
@@ -26,6 +29,7 @@ env:
   GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
   GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
   QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
+  QUAY_CUSTOM_NAMESPACE: ${{ inputs.quay_custom_namespace }}
   QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
   QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
 jobs:
