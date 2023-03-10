@@ -49,7 +49,9 @@ jobs:
           echo "QUAY_IMG_EXP=90d" >> $GITHUB_ENV
       - name: Checkout this project
         uses: actions/checkout@v3
+      - name: Retrieve carpenter image builder
+        run: |
+          docker pull ghcr.io/arcalot/arcaflow-plugin-image-builder:latest
       - name: Carpenter build
-        uses: arcalot/arcaflow-plugin-image-builder@main
-        with:
-          args: build --build --push
+        run: |
+          docker run ghcr.io/arcalot/arcaflow-plugin-image-builder:latest build --build --push
