@@ -50,16 +50,16 @@ jobs:
         uses: actions/checkout@v3
       - name: Carpenter
         uses: jdowni000/arcaflow-reusable-workflows/.github/workflows/action.yaml@package
-          with:
-            image_name: ${{ inputs.image_name }}
-            image_tag: ${{ inputs.image_tag }}
-            github_username: ${{ inputs.github_username }}
-            github_password: ${{ secrets.GITHUB_TOKEN }}
-            github_namespace: ${{ inputs.github_namespace }}
-            quay_username: ${{ secrets.QUAY_USERNAME }}
-            quay_password: ${{ secrets.QUAY_PASSWORD }}
-            quay_namespace: ${{ secrets.QUAY_NAMESPACE }}
-            quay_custom_namespace: ${{ inputs.quay_custom_namespace }}
-            quay_img_exp: ${{ inputs.quay_img_exp }}
-            build_timeout: ${{ inputs.build_timeout }}
+        with:
+          image_name: ${{ inputs.image_name }}
+          image_tag: ${{ inputs.image_tag }}
+          github_username: ${{ inputs.github_username }}
+          github_password: ${{ secrets.GITHUB_TOKEN }}
+          github_namespace: ${{ inputs.github_namespace }}
+          quay_username: ${{ secrets.QUAY_USERNAME }}
+          quay_password: ${{ secrets.QUAY_PASSWORD }}
+          quay_namespace: ${{ secrets.QUAY_NAMESPACE }}
+          quay_custom_namespace: ${{ inputs.quay_custom_namespace }}
+          quay_img_exp: ${{ inputs.quay_img_exp }}
+          build_timeout: ${{ inputs.build_timeout }}
 
