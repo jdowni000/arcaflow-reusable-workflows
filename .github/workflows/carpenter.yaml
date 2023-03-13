@@ -19,19 +19,18 @@ on:
         type: string
       github_namespace:
         required: false
-        type: string    
+        type: string 
+      build_timeout:
+        required: false
+        type: int   
+    secrets:
+      QUAY_NAMESPACE:
+        required: false
+      QUAY_USERNAME:
+        required: false
+      QUAY_PASSWORD:
+        required: false   
 
-env:
-  IMAGE_NAME: ${{ inputs.image_name }}
-  IMAGE_TAG: ${{ inputs.image_tag }}
-  QUAY_IMG_EXP: ${{ inputs.quay_img_exp }}
-  GITHUB_USERNAME: ${{ inputs.github_username }}
-  GITHUB_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
-  GITHUB_NAMESPACE: ${{ inputs.github_namespace }}
-  QUAY_NAMESPACE: ${{ secrets.QUAY_NAMESPACE }}
-  QUAY_CUSTOM_NAMESPACE: ${{ inputs.quay_custom_namespace }}
-  QUAY_USERNAME: ${{ secrets.QUAY_USERNAME }}
-  QUAY_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
 jobs:
   carpenter-build:
     name: Build ${{ github.ref_name }} from ${{ github.event_name }}
@@ -49,24 +48,18 @@ jobs:
           echo "QUAY_IMG_EXP=90d" >> $GITHUB_ENV
       - name: Checkout this project
         uses: actions/checkout@v3
-      - name: Retrieve carpenter image builder
-        run: |
-          docker pull ghcr.io/arcalot/arcaflow-plugin-image-builder:v0.3.0
-      - name: Carpenter build
-        run: |
-          docker run \
-            --rm \
-            -e=IMAGE_NAME=$IMAGE_NAME \
-            -e=IMAGE_TAG=$IMAGE_TAG \
-            -e=GITHUB_USERNAME=$GITHUB_USERNAME \
-            -e=GITHUB_PASSWORD=$GITHUB_PASSWORD \
-            -e=GITHUB_NAMESPACE=$GITHUB_NAMESPACE \
-            -e=QUAY_USERNAME=$QUAY_USERNAME \
-            -e=QUAY_PASSWORD=$QUAY_PASSWORD \
-            -e=QUAY_NAMESPACE=$QUAY_NAMESPACE \
-            -e=QUAY_CUSTOM_NAMESPACE=$QUAY_CUSTOM_NAMESPACE \
-            -e=QUAY_IMG_EXP=$QUAY_IMG_EXP \
-            -e=BUILD_TIMEOUT=600 \
-            --volume /var/run/docker.sock:/var/run/docker.sock:z \
-            --volume $PWD:/github/workspace \
-            ghcr.io/arcalot/arcaflow-plugin-image-builder:v0.3.0 build --build --push
+      - name: Carpenter
+        uses: jdowni000/arcaflow-reusable-workflows/.github/workflows/action.yaml@package
+          with:
+            image_name: ${{ inputs.image_name }}
+            image_tag: ${{ inputs.image_tag }}
+            github_username: ${{ inputs.github_username }}
+            github_password: ${{ secrets.GITHUB_TOKEN }}
+            github_namespace: ${{ inputs.github_namespace }}
+            quay_username: ${{ secrets.QUAY_USERNAME }}
+            quay_password: ${{ secrets.QUAY_PASSWORD }}
+            quay_namespace: ${{ secrets.QUAY_NAMESPACE }}
+            quay_custom_namespace: ${{ inputs.quay_custom_namespace }}
+            quay_img_exp: ${{ inputs.quay_img_exp }}
+            build_timeout: ${{ inputs.build_timeout }}
+
