@@ -22,7 +22,7 @@ on:
         type: string 
       build_timeout:
         required: false
-        type: int   
+        type: number   
     secrets:
       QUAY_NAMESPACE:
         required: false
