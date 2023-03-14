@@ -32,36 +32,36 @@ on:
         required: false   
 
 jobs:
-  carpenter-configure:
-    name: Check configuration
+  carpenter-build:
+    name: Build ${{ github.ref_name }} from ${{ github.event_name }}
     runs-on: ubuntu-latest
     steps:
       - name: Set image tag for release
         if: github.event_name == 'release'
         run: |
           echo "IMAGE_TAG=${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
+
       - name: Set image tag and expiration for dev
         if: github.ref != 'refs/heads/main' && github.event_name != 'release'
         run: |
           export commit_hash=${{ github.sha }}
           echo "IMAGE_TAG=${GITHUB_REF##*/}_${commit_hash:0:7}" >> $GITHUB_ENV
           echo "QUAY_IMG_EXP=90d" >> $GITHUB_ENV
+
       - name: Checkout this project
         uses: actions/checkout@v3
-
-  carpenter-build:
-    name: Build ${{ github.ref_name }} from ${{ github.event_name }}
-    uses: jdowni000/arcaflow-reusable-workflows/.github/workflows/action.yaml@package
-    with:
-      image_name: ${{ inputs.image_name }}
-      image_tag: ${{ inputs.image_tag }}
-      github_username: ${{ inputs.github_username }}
-      github_password: ${{ secrets.GITHUB_TOKEN }}
-      github_namespace: ${{ inputs.github_namespace }}
-      quay_username: ${{ secrets.QUAY_USERNAME }}
-      quay_password: ${{ secrets.QUAY_PASSWORD }}
-      quay_namespace: ${{ secrets.QUAY_NAMESPACE }}
-      quay_custom_namespace: ${{ inputs.quay_custom_namespace }}
-      quay_img_exp: ${{ inputs.quay_img_exp }}
-      build_timeout: ${{ inputs.build_timeout }}
-      github_workspace: $GITHUB_WORKSPACE
+        
+      - name: Carpenter Build
+        uses: actions/arcaflow-container-toolkit-action@v0.1.0
+        with:
+          image_name: ${{ inputs.image_name }}
+          image_tag: ${{ inputs.image_tag }}
+          github_username: ${{ inputs.github_username }}
+          github_password: ${{ secrets.GITHUB_TOKEN }}
+          github_namespace: ${{ inputs.github_namespace }}
+          quay_username: ${{ secrets.QUAY_USERNAME }}
+          quay_password: ${{ secrets.QUAY_PASSWORD }}
+          quay_namespace: ${{ secrets.QUAY_NAMESPACE }}
+          quay_custom_namespace: ${{ inputs.quay_custom_namespace }}
+          quay_img_exp: ${{ inputs.quay_img_exp }}
+          build_timeout: ${{ inputs.build_timeout }}
